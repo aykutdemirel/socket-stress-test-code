@@ -2,12 +2,9 @@ import { io } from "socket.io-client"
 import { v4 } from "uuid";
 
 const randomName = `client_${v4()}`;
-const baseUrl = "ws://35.214.59.213:3000";
+const baseUrl = "ws://34.142.60.145:80";
 const socketOptions = {
     forceNew: false, //use same websocket connection
-    auth: {
-        token: "1v2e3g4a5n6z7o8n9e"
-    },
     transports: ["websocket"]
 };
 
