@@ -28,6 +28,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "ts-start": "ts-node ./index.ts"
+    "ts-start": "ts-node ./index.ts",
+    "ts-subscriber-start": "ts-node ./subscribers.ts"
   }
 }
