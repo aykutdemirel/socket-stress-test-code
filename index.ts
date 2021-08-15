@@ -95,12 +95,19 @@ feedSocket.connect();
     }
 }*/
 
-setTimeout(() => {
+/*setTimeout(() => {
     profileSocket.emit("profile_page_enter", "profile1");
     //entered feeds page, sees post 1
     feedSocket.emit("feeds_page_enter", ["post1"]);
-}, 2000);
+}, 2000);*/
 
+setTimeout(() => {
+    //likes posts
+    feedSocket.emit("post_like", { userId: randomName, postId: "post1" });
+    feedSocket.emit("post_like", { userId: randomName, postId: "post2" });
+    //won't work, did not join that post's room
+    feedSocket.emit("post_like", { userId: randomName, postId: "new_post" });
+}, 4000);
 
 /*setTimeout(() => {
     profileSocket.emit("profile_page_enter", "profile1");
