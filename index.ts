@@ -3,7 +3,7 @@ import { v4 } from "uuid";
 
 const baseUrl = "ws://34.142.60.145:80";
 const socketOptions = {
-    forceNew: false, //use same websocket connection
+    forceNew: true, //use same websocket connection
     transports: ["websocket"]
 };
 
