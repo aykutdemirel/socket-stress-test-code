@@ -5,9 +5,6 @@ const randomName = `client_${v4()}`;
 const baseUrl = "ws://35.214.59.213:3000";
 const socketOptions = {
     forceNew: false, //use same websocket connection
-    auth: {
-        token: "1v2e3g4a5n6z7o8n9e"
-    },
     transports: ["websocket"]
 };
 
@@ -45,7 +42,7 @@ profileSocket.on("connect", () => {
     console.log('connected to profile.');
 });
 
-feedSocket.on("server_identification", (serverName) => {
+profileSocket.on("server_identification", (serverName) => {
     console.log(`profile socket, connected to server: ${serverName}`);
 });
 
@@ -90,7 +87,22 @@ feedSocket.on("connect_error", (err: Error) => {
 
 feedSocket.connect();
 
+/*for(int i=0; i<100; i++) {
+    let user = "user" + i;
+    for(int j=0; j < 1000; j++) {
+        let post = "post" + j;
+        feedSocket.emit("post_like", { userId: user, postId: post });
+    }
+}*/
+
 setTimeout(() => {
+    profileSocket.emit("profile_page_enter", "profile1");
+    //entered feeds page, sees post 1
+    feedSocket.emit("feeds_page_enter", ["post1"]);
+}, 2000);
+
+
+/*setTimeout(() => {
     profileSocket.emit("profile_page_enter", "profile1");
     //entered feeds page, sees post 1
     feedSocket.emit("feeds_page_enter", ["post1"]);
@@ -131,4 +143,4 @@ setTimeout(() => {
 setTimeout(() => {
     //only main socket will close underlying websocket connection, configured server-side
     socket.emit("user_disconnected", randomName);
-}, 16000);
+}, 16000);*/
