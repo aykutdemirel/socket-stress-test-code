@@ -1,4 +1,6 @@
+
 const { io } = require("socket.io-client");
+const { v4 } = require("uuid");
 
 const URL = process.env.URL || "http://34.89.90.167";
 const MAX_CLIENTS = 1000;
