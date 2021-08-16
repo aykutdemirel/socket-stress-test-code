@@ -76,6 +76,7 @@ const printReport = () => {
 
   packetsSinceLastReport = 0;
   lastReport = now;
+  throw Error ('it has to be stopped');
 };
 
 setInterval(printReport, 10000);
