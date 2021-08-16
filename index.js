@@ -14,7 +14,7 @@ let packetsSinceLastReport = 0;
 
 const createClient = () => {
   // for demonstration purposes, some clients stay stuck in HTTP long-polling
-  const transports = "websocket";
+  const transports = ["websocket"];
     //Math.random() < POLLING_PERCENTAGE ? ["polling"] : ["polling", "websocket"];
 
   const socket = io(URL, {
