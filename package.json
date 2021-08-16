@@ -27,7 +27,7 @@
     "node": ">=0.12.0"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "node index.js",
     "ts-start": "ts-node ./index.ts",
     "ts-subscriber-start": "ts-node ./subscribers.ts"
   }
