@@ -3,9 +3,9 @@ const { io } = require("socket.io-client");
 const { v4 } = require("uuid");
 
 const URL = process.env.URL || "http://34.89.90.167";
-const MAX_CLIENTS = 10;
+const MAX_CLIENTS = 1000;
 const POLLING_PERCENTAGE = 0.05;
-const CLIENT_CREATION_INTERVAL_IN_MS = 10;
+const CLIENT_CREATION_INTERVAL_IN_MS = 30;
 const EMIT_INTERVAL_IN_MS = 1000;
 
 let clientCount = 0;
@@ -78,4 +78,4 @@ const printReport = () => {
   lastReport = now;
 };
 
-setInterval(printReport, 5000);
+setInterval(printReport, 10000);
