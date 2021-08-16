@@ -1,59 +1,79 @@
-'use strict';
+const { io } = require("socket.io-client");
 
-const express = require('express');
-const app = express();
-const server = require('http').createServer(app);
-const io = require('socket.io').listen(server);
-const port = process.env.PORT || 3008;
+const URL = process.env.URL || "http://34.89.90.167";
+const MAX_CLIENTS = 1000;
+const POLLING_PERCENTAGE = 0.05;
+const CLIENT_CREATION_INTERVAL_IN_MS = 10;
+const EMIT_INTERVAL_IN_MS = 1000;
 
-var connPerSec = 0;
-var msgPerSec = 0;
-var totalconnPerSec = 0;
-var totalmsgPerSec = 0;
+let clientCount = 0;
+let lastReport = new Date().getTime();
+let packetsSinceLastReport = 0;
 
-io.on('connect', socket => {
-    totalconnPerSec++;
-    connPerSec++;
-    socket.on('usermessage', msg => {
-        io.sockets.in('user').emit('usermessage', msg);
-    });
+const createClient = () => {
+  // for demonstration purposes, some clients stay stuck in HTTP long-polling
+  const transports =
+    Math.random() < POLLING_PERCENTAGE ? ["polling"] : ["polling", "websocket"];
 
-    socket.on('userjoin', msg => {
-        socket.join('user');
-    });
+  const socket = io(URL, {
+    transports,
+  });
 
-    socket.on('join', msg => {
-        socket.join(msg.roomId);
-    });
 
-    socket.on('game', msg => {
-        msgPerSec++;
-        totalmsgPerSec++;
-        io.in(msg.roomId).emit('game', {
-            roomId: msg.roomId,
-            x: 'TESING WHILE THAT MUCH DATA IS FLOATING',
-            y: 'TESING WHILE THAT MUCH DATA IS FLOATING',
-            z: 'TESING WHILE THAT MUCH DATA IS FLOATING',
-            t: 'TESING WHILE THAT MUCH DATA IS FLOATING'
-        });
-    });
-});
+  const randomName = `client_${v4()}`;
 
-var printCurrentCounts = function() {
-    console.log(
-        'Cons:' +
-        totalconnPerSec +
-        'Msgs: ' +
-        totalmsgPerSec +
-        ' Con per 2sec:' +
-        connPerSec +
-        'Msg per 2 sec:' +
-        msgPerSec
-    );
-    msgPerSec = 0;
-    connPerSec = 0;
-    setTimeout(() => printCurrentCounts(), 2000);
+  socket.on("disconnect", (reason) => {
+    console.log(`disconnect due to ${reason}`);
+  });
+  
+  //MAIN
+  socket.on("connect", () => {
+      console.log('connected to main.');
+  
+      socket.emit("message_sent", { userName: randomName, message: "Hello!" });
+  });
+  
+  socket.on("server_identification", (serverName) => {
+      console.log(`main socket, connected to server: ${serverName}`);
+  });
+  
+  socket.on("message_received", (data) => {
+        packetsSinceLastReport++;
+      console.log(`${data.userName} says ${data.message}`);
+  });
+  
+  socket.on("user_disconnected", (data) => {
+      console.log(`${data} disconnected from main.`);
+  });
+  
+  socket.on("connect_error", (err) => {
+      console.log(err.message);
+  });
+  
+  setInterval(() => {
+    socket.connect();
+  }, EMIT_INTERVAL_IN_MS);
+
+  if (++clientCount < MAX_CLIENTS) {
+    setTimeout(createClient, CLIENT_CREATION_INTERVAL_IN_MS);
+  }
 };
 
-setTimeout(() => printCurrentCounts(), 2000);
-server.listen(port, () => console.log('running on ' + port));
+createClient();
+
+const printReport = () => {
+  const now = new Date().getTime();
+  const durationSinceLastReport = (now - lastReport) / 1000;
+  const packetsPerSeconds = (
+    packetsSinceLastReport / durationSinceLastReport
+  ).toFixed(2);
+
+  console.log(
+    `client count: ${clientCount} ; average packets received per second: ${packetsPerSeconds}`
+  );
+
+  packetsSinceLastReport = 0;
+  lastReport = now;
+};
+
+setInterval(printReport, 5000);
