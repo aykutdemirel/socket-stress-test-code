@@ -3,7 +3,7 @@ const { io } = require("socket.io-client");
 const { v4 } = require("uuid");
 
 const URL = process.env.URL || "http://34.89.90.167";
-const MAX_CLIENTS = 1000;
+const MAX_CLIENTS = 10;
 const POLLING_PERCENTAGE = 0.05;
 const CLIENT_CREATION_INTERVAL_IN_MS = 10;
 const EMIT_INTERVAL_IN_MS = 1000;
@@ -14,8 +14,8 @@ let packetsSinceLastReport = 0;
 
 const createClient = () => {
   // for demonstration purposes, some clients stay stuck in HTTP long-polling
-  const transports =
-    Math.random() < POLLING_PERCENTAGE ? ["polling"] : ["polling", "websocket"];
+  const transports = "websocket";
+    //Math.random() < POLLING_PERCENTAGE ? ["polling"] : ["polling", "websocket"];
 
   const socket = io(URL, {
     transports,
