@@ -11,7 +11,7 @@ var cors = require('cors');
 module.exports = function (app) {
     app.use(cors())
 
-    app.use(jwt({secret: config.jwt.secret}).unless({path: ['/api/v1/registration','/api/v1/registration/sign-up','/api/v1/registration/login', '/api/v1/elasticsearch', '/api/v1/elasticsearch/info']}));    
+    app.use(jwt({secret: config.jwt.secret, algorithms: ['RS256']}).unless({path: ['/api/v1/registration','/api/v1/registration/sign-up','/api/v1/registration/login', '/api/v1/elasticsearch', '/api/v1/elasticsearch/info']}));    
 /*    app.use('/api/v1/registration', require('./api/registration'));
     app.use('/api/v1/users', require('./api/users'));
     app.use('/api/v1/feedbacks', require('./api/feedbacks'));
