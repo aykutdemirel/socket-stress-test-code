@@ -15,7 +15,7 @@ let lastReport = new Date().getTime();
 let packetsSinceLastReport = 0;
 
 
-exports.start = async function (req, res) {
+exports.start = function (req, res) {
     console.log('start controller');
     try {
 
@@ -93,7 +93,7 @@ exports.start = async function (req, res) {
     }
 };
 
-exports.stop = async function (req, res) {
+exports.stop = function (req, res) {
     console.log('stop controller');
     try {
 
