@@ -11,7 +11,7 @@ var server = require('http').createServer(app)
 require('./config/express')(app)
 require('./routes')(app)
 //cors enabled
-app.use(cors())
+//app.use(cors())
 
 console.log("cors been passed");
 
