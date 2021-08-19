@@ -6,7 +6,12 @@
 
 var vars = require('./vars');
 
-module.exports = {
-    // Server port
-    port: vars.port
+
+var development = {
+    // root
+    port: vars.port,
+    // Server IP
+    ip: 'localhost'
 }
+
+module.exports = development;
