@@ -4,7 +4,6 @@
 
 'use strict';
 
-var errors = require('./components/errors');
 const config = require('./config/environment');
 const jwt = require('express-jwt');
 var cors = require('cors');
@@ -18,7 +17,6 @@ module.exports = function (app) {
     app.use('/api/v1/feedbacks', require('./api/feedbacks'));
     app.use('/api/v1/invited-users', require('./api/invited-users'));
     app.use('/api/v1/notes', require('./api/notes'));*/
-
 
     app.use(function (err, req, res, next) {
         if (err.code === 'permission_denied') {
