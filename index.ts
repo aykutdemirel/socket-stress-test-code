@@ -1,12 +1,12 @@
 import { io } from "socket.io-client"
 import { v4 } from "uuid";
 
+
 const baseUrl = "ws://34.142.60.145:80";
 const socketOptions = {
     forceNew: true, //use same websocket connection
     transports: ["websocket"]
 };
-
 
 for(var i=0; i< 100; i++) {
 
