@@ -2,7 +2,6 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 
 var express = require('express')
-var cors = require('cors')
 var config = require('./config/environment')
 
 // Setup server

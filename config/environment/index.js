@@ -4,6 +4,13 @@
  */
 
 'use strict';
+var publicIp = require('public-ip');
+const externalIP = "";
+
+publicIp.v4().then(ip => {
+    externalIP = ip;
+    console.log("your public ip address", ip);
+}); 
 
 var path = require('path')
 var _ = require('lodash')
@@ -21,6 +28,9 @@ var all = {
 
     // Server port
     port: process.env.PORT || 5000,
+
+    // external IPs
+    externalIP: externalIP || "",
 
     // Secret for session
     secrets: {

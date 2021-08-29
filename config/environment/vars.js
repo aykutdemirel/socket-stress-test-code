@@ -3,6 +3,6 @@
 module.exports = {
     // Server port
     port: 5000,
-    ip: "localhost:5000",
+    ip: process.env.IP || "localhost",
     basePath: "/api/v1"
 }

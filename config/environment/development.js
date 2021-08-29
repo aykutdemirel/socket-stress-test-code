@@ -6,12 +6,11 @@
 
 var vars = require('./vars');
 
-
 var development = {
     // root
-    port: vars.port,
+    port: process.env.PORT || vars.port || 5000,
     // Server IP
-    ip: 'localhost'
+    ip: process.env.IP || "0.0.0.0"
 }
 
 module.exports = development;

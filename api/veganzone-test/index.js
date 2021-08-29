@@ -3,7 +3,8 @@ var express = require('express');
 var controller = require('./test.controller');
 var router = express.Router();
 
-router.get('/start', controller.start);
+router.post('/start', controller.start);
+router.get('/run', controller.run);
 router.get('/stop', controller.stop);
 
 module.exports = router;
