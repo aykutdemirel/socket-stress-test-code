@@ -1,0 +1,44 @@
+{
+    "apps": [
+      {
+        "exec_mode": "fork_mode",
+        "script": "./index.js",
+        "name": "APP1",
+        "node_args": [ "--harmony" ],
+        "env": {
+          "PORT": 4000,
+          "NODE_ENV": "DEVELOPMENT"
+        }
+      },
+      {
+        "exec_mode": "fork_mode",
+        "script": "./index.js",
+        "name": "APP2",
+        "node_args": [ "--harmony" ],
+        "env": {
+          "PORT": 5000,
+          "NODE_ENV": "DEVELOPMENT"
+        }
+      },
+      {
+        "exec_mode": "fork_mode",
+        "script": "./index.js",
+        "name": "APP3",
+        "node_args": [ "--harmony" ],
+        "env": {
+          "PORT": 6000,
+          "NODE_ENV": "DEVELOPMENT"
+        }
+      },
+      {
+        "exec_mode": "fork_mode",
+        "script": "./index.js",
+        "name": "APP4",
+        "node_args": [ "--harmony" ],
+        "env": {
+          "PORT": 7000,
+          "NODE_ENV": "DEVELOPMENT"
+        }
+      }
+    ]
+}
