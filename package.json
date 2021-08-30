@@ -40,6 +40,7 @@
   },
   "scripts": {
     "start": "node index.js",
+    "start-pm": "pm2 start index.js -i max ",        
     "ts-start": "ts-node ./index.ts",
     "ts-subscriber-start": "ts-node ./subscribers.ts"
   }
