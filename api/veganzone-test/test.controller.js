@@ -1,7 +1,7 @@
 'use strict';
 var io  = require("socket.io-client");
 var v4  = require("uuid");
-var config = require('./config/environment')
+var config = require('./../../config/environment')
 
 const URL = process.env.URL || "http://34.89.90.167";
 const MAX_CLIENTS = 1000;
@@ -16,7 +16,7 @@ let packetsSinceLastReport = 0;
 exports.start = function (req, res) {
     console.log('start controller in this ip =' + config.ip + ', port =' + config.port);
     var veganzoneAdresses = JSON.parse(req.body);
-    
+
 };
 
 exports.run = function (req, res) {

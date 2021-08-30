@@ -5,12 +5,12 @@
 
 'use strict';
 var publicIp = require('public-ip');
-const externalIP = "";
-
-publicIp.v4().then(ip => {
-    externalIP = ip;
+var externalIP = publicIp.v4().then(ip => {
     console.log("your public ip address", ip);
-}); 
+    return ip;
+});
+
+
 
 var path = require('path')
 var _ = require('lodash')
