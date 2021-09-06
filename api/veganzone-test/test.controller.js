@@ -15,8 +15,15 @@ let packetsSinceLastReport = 0;
 
 exports.start = function (req, res) {
     console.log('start controller in this ip =' + config.ip + ', port =' + config.port);
-    var veganzoneAdresses = JSON.parse(req.body);
+    //console.log('veganzoneAdresses | ' + JSON.stringify(veganzoneAdresses));
+    console.log('data.body iplist = ' + req.body.iplist);
 
+    var response = JSON.parse(req.body.iplist);
+
+    console.log('response öncesi =====>>');    
+    console.log('response = ' + response[0].ip);
+
+    res.send({ 'result': true, 'data': req.body.iplist });
 };
 
 exports.run = function (req, res) {
