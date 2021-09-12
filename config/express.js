@@ -34,14 +34,14 @@ module.exports = function (app) {
     app.use(methodOverride())
 
     // cookieSession
-    app.use(cookieParser(config.secrets.cookie))
+    /*app.use(cookieParser(config.secrets.cookie))
     app.use(cookieSession({
         name: 'session',
         secret: config.secrets.session,
         cookie: {
             maxAge: 2678400000 // 31 days
         }
-    }))
+    }))*/
 
     //Secure Express Apps
     app.use(helmet())
@@ -50,7 +50,7 @@ module.exports = function (app) {
 
     }
 
-    if (env === 'development') {
+    if (env === 'development' || env === 'DEVELOPMENT') {
         
         //app.use(require('connect-livereload')())
         app.use(morgan('dev'))

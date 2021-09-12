@@ -16,7 +16,7 @@
         "name": "APP2",
         "node_args": [ "--harmony" ],
         "env": {
-          "PORT": 5000,
+          "PORT": 5500,
           "NODE_ENV": "DEVELOPMENT"
         }
       },
