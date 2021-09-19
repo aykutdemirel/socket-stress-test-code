@@ -80,7 +80,7 @@ function checkAsyncCalls(){
 
 }
 
-exports.run = async function (req, res) {
+exports.run = function (req, res) {
 
     console.log('inside of run controller = ' + config.ip + ', port =' + config.port);
     console.log('req.body.controlGuid = ' + req.body.controlGuid);
