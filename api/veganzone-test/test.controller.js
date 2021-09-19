@@ -80,106 +80,111 @@ function checkAsyncCalls(){
 
 }
 
-exports.run = function (req, res) {
+exports.run = async function (req, res) {
 
     console.log('inside of run controller = ' + config.ip + ', port =' + config.port);
     console.log('req.body.controlGuid = ' + req.body.controlGuid);
 
-    /*try { */
+    try {
         
-    res.send({
-        avgTime: 500,
-        ip: config.ip, 
-        port: config.port,
-        controlGuid: req.body.controlGuid
-    });
-        
-    /*const createClient = () => {
-        // for demonstration purposes, some clients stay stuck in HTTP long-polling
-        const transports = ["websocket"];
-            //Math.random() < POLLING_PERCENTAGE ? ["polling"] : ["polling", "websocket"];
-        
-        const socket = io(URL, {
-            transports,
-        });
-        
-        const randomName = `client_${v4()}`;
-        
-        socket.on("disconnect", (reason) => {
-            console.log(`disconnect due to ${reason}`);
-        });
-        
-        var messageClientDate = new Date().getTime();
+        console.log('inside of try');
 
-        //MAIN
-        socket.on("connect", () => {
-            console.log('connected to main.');
-            socket.emit("message_sent", { userName: randomName, message: "Hello!", clientTime: messageClientDate });
-        });
-        
-        socket.on("server_identification", (serverName) => {
-            console.log(`main socket, connected to server: ${serverName}`);
-        });
-        
-        socket.on("message_received", (data) => {
-            packetsSinceLastReport++;
-            console.log(`${data.userName} says ${data.message}, client time = ${data.clientTime}, server time = ${data.serverTime}`);
-        });
-        
-        socket.on("user_disconnected", (data) => {
-            console.log(`${data} disconnected from main.`);
-        });
-        
-        socket.on("connect_error", (err) => {
-            console.log(err.message);
-        });
-        
-        setInterval(() => {
-            socket.connect();
-        }, EMIT_INTERVAL_IN_MS);
-        
-        if (++clientCount < MAX_CLIENTS) {
-            setTimeout(createClient, CLIENT_CREATION_INTERVAL_IN_MS);
-        }*/
-    //};
-    
-    /*createClient();
-    
-    const printReport = () => {
-
-        const now = new Date().getTime();
-        const durationSinceLastReport = (now - lastReport) / 1000;
-
-        const packetsPerSeconds = (
-            packetsSinceLastReport / durationSinceLastReport
-        ).toFixed(2);
-        
-        console.log(
-            `client count: ${clientCount} ; average packets received per second: ${packetsPerSeconds}`
-        );
-        
-        packetsSinceLastReport = 0;
-        lastReport = now;
-
-        res.status(200).send({        
+        /*res.send({
+            avgTime: 500,
             ip: config.ip, 
             port: config.port,
-            controlGuid: req.body.controlGuid,
-            clientCount: clientCount,
-            packetsPerSeconds: packetsPerSeconds
-        });
+            controlGuid: req.body.controlGuid
+        }); */
 
-        throw Error ('it has to be stopped');
-    };
-    
-    setInterval(printReport, 10000);
+        var createClient = () => {
+            console.log('inside create client');
+            // for demonstration purposes, some clients stay stuck in HTTP long-polling
+            var transports = ["websocket"];
+                //Math.random() < POLLING_PERCENTAGE ? ["polling"] : ["polling", "websocket"];
+            
+            var socket = io(URL, {
+                transports,
+            });
+            
+            var randomName = `client_${v4()}`;
+            
+            socket.on("disconnect", (reason) => {
+                console.log(`disconnect due to ${reason}`);
+            });
+            
+            var messageClientDate = new Date().getTime();
 
+            //MAIN
+            socket.on("connect", () => {
+                console.log('connected to main.');
+                socket.emit("message_sent", { userName: randomName, message: "Hello!", clientTime: messageClientDate });
+            });
+            
+            socket.on("server_identification", (serverName) => {
+                console.log(`main socket, connected to server: ${serverName}`);
+            });
+            
+            socket.on("message_received", (data) => {
+                packetsSinceLastReport++;
+                console.log(`${data.userName} says ${data.message}, client time = ${data.clientTime}, server time = ${data.serverTime}`);
+            });
+            
+            socket.on("user_disconnected", (data) => {
+                console.log(`${data} disconnected from main.`);
+            });
+            
+            socket.on("connect_error", (err) => {
+                console.log(err.message);
+            });
+            
+            setInterval(() => {
+                socket.connect();
+            }, EMIT_INTERVAL_IN_MS);
+            
+            if (++clientCount < MAX_CLIENTS) {
+                setTimeout(createClient, CLIENT_CREATION_INTERVAL_IN_MS);
+            }
+        };
         
+        createClient();
+        
+        var printReport = () => {
+
+            console.log('inside report');
+
+            var now = new Date().getTime();
+            var durationSinceLastReport = (now - lastReport) / 1000;
+
+            var packetsPerSeconds = (
+                packetsSinceLastReport / durationSinceLastReport
+            ).toFixed(2);
+            
+            console.log(
+                `client count: ${clientCount} ; average packets received per second: ${packetsPerSeconds}`
+            );
+            
+            packetsSinceLastReport = 0;
+            lastReport = now;
+
+            res.status(200).send({        
+                ip: config.ip, 
+                port: config.port,
+                controlGuid: req.body.controlGuid,
+                clientCount: clientCount,
+                packetsPerSeconds: packetsPerSeconds
+            });
+
+            throw Error ('it has to be stopped');
+        };
+        
+        console.log('before interval');
+
+        setInterval(printReport, 10000);
         
     } catch (err) {
         console.log("what the hell | " + config.ip + ":" + config.port );
         res.send({ 'result': false, 'error': err });
-    }*/
+    }
 
     
 }
