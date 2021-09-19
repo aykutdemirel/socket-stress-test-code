@@ -87,14 +87,14 @@ exports.run = function (req, res) {
 
     /*try { */
         
-    /*res.send({
+    res.send({
         avgTime: 500,
         ip: config.ip, 
         port: config.port,
         controlGuid: req.body.controlGuid
-    });*/
+    });
         
-    const createClient = () => {
+    /*const createClient = () => {
         // for demonstration purposes, some clients stay stuck in HTTP long-polling
         const transports = ["websocket"];
             //Math.random() < POLLING_PERCENTAGE ? ["polling"] : ["polling", "websocket"];
@@ -140,10 +140,10 @@ exports.run = function (req, res) {
         
         if (++clientCount < MAX_CLIENTS) {
             setTimeout(createClient, CLIENT_CREATION_INTERVAL_IN_MS);
-        }
-    };
+        }*/
+    //};
     
-    createClient();
+    /*createClient();
     
     const printReport = () => {
 
@@ -176,11 +176,12 @@ exports.run = function (req, res) {
 
         
         
-    /*} catch (err) {
+    } catch (err) {
         console.log("what the hell | " + config.ip + ":" + config.port );
         res.send({ 'result': false, 'error': err });
     }*/
 
+    
 }
 
 exports.stopReq = function (req, res) {
