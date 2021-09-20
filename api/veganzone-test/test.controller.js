@@ -106,7 +106,7 @@ exports.run = function (req, res) {
                 transports,
             });
             
-            var randomName = `client_${v4()}`;
+            var randomName = `client_${uuid()}`;
             
             socket.on("disconnect", (reason) => {
                 console.log(`disconnect due to ${reason}`);
