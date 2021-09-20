@@ -183,9 +183,9 @@ exports.run = function (req, res) {
         
     } catch (err) {
         console.log("what the hell | " + config.ip + ":" + config.port );
+        console.log("error | " + err);
         res.send({ 'result': false, 'error': err });
     }
-
     
 }
 
