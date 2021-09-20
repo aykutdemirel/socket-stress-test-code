@@ -4,7 +4,7 @@ var uuid = require('uuid-random');
 var config = require('./../../config/environment')
 const axios = require('axios');
 
-const URL = process.env.URL || "http://34.89.90.167";
+const URL = process.env.URL || "http://35.246.13.233";
 const MAX_CLIENTS = 1;
 const POLLING_PERCENTAGE = 0.05;
 const CLIENT_CREATION_INTERVAL_IN_MS = 30;
