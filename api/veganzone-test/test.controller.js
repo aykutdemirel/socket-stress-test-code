@@ -5,7 +5,6 @@ var config = require('./../../config/environment')
 const axios = require('axios');
 
 const URL = process.env.URL || "http://35.246.13.233";
-const MAX_CLIENTS = 1000;
 const POLLING_PERCENTAGE = 0.05;
 const CLIENT_CREATION_INTERVAL_IN_MS = 30;
 const EMIT_INTERVAL_IN_MS = 1000;
@@ -81,6 +80,8 @@ function checkAsyncCalls(){
 }
 
 exports.run = function (req, res) {
+
+    var MAX_CLIENTS = 1000;
 
     console.log('inside of run controller = ' + config.ip + ', port =' + config.port);
     console.log('req.body.controlGuid = ' + req.body.controlGuid);
