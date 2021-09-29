@@ -15,6 +15,74 @@ let packetsSinceLastReport = 0;
 var continueCheck = true;
 var majorStatistics = [];
 
+const {execSync} = require('child_process');
+
+
+exports.startArtilleryInit = function (req, res) {
+    
+    console.log('startArtilleryInit controller in this ip =' + config.ip + ', port =' + config.port);
+    console.log('data.body iplist = ' + req.body.iplist);
+
+    var _res = res;
+    let ipList = JSON.parse(req.body.iplist);
+    
+    for(var i=0; i<ipList.length; i++) {
+        majorStatistics.push({status:false, ip:ipList[i].ip, port:ipList[i].port, data:"", controlGuid: uuid() });
+    }
+
+    for(var i=0; i<majorStatistics.length; i++) {
+        
+        console.log("majorStatistics ====> " + majorStatistics[i].ip + ":" + majorStatistics[i].port + "/api/v1/veganzone-test/startArtillery");
+        
+        axios.post(majorStatistics[i].ip + ":" + majorStatistics[i].port + "/api/v1/veganzone-test/startArtillery", {
+            controlGuid: majorStatistics[i].controlGuid
+        })
+        .then(function (response) {
+
+            for(var j = 0; j < majorStatistics.length; j++) {
+                console.log("majorStatistics[j].controlGuid ==>" + majorStatistics[j].controlGuid + ", from response => " + response.data.controlGuid);
+                if(majorStatistics[j].controlGuid==response.data.controlGuid) {
+                    majorStatistics[j].status = true;
+                    majorStatistics[j].data = response.data;
+                }
+            }
+
+            continueCheck = true; 
+            
+            checkAsyncCalls();
+            
+            console.log("continueCheck | " + continueCheck);
+            if(continueCheck===false) {
+                console.log('response öncesi =====>>');
+                _res.status(200).send({ 'result': true, "majorStatistics": majorStatistics});
+            }
+
+        })
+        .catch(function (error) {
+            console.log("inrequest error => " + error);
+        });
+    }
+    //startArtillery();
+}
+
+exports.startArtillery = function (req, res) {
+    
+    console.log('artillery command init');
+    console.log('inside of run controller = ' + config.ip + ', port =' + config.port);
+    console.log('req.body.controlGuid = ' + req.body.controlGuid);  
+
+    execSync("npm run build_assets");    
+    
+    console.log('artillery started');
+
+    res.status(200).send({        
+        ip: config.ip, 
+        port: config.port,
+        controlGuid: req.body.controlGuid
+    });
+
+}
+
 
 exports.start = function (req, res) {
     

@@ -10,6 +10,8 @@
     "@sentry/tracing": "^6.5.1",
     "@types/node": "^14.14.21",
     "@types/uuid": "^8.3.0",
+    "artillery": "^1.7.9",
+    "artillery-engine-socketio-v3": "^1.1.2",
     "axios": "^0.21.4",
     "command-line-args": "^5.1.1",
     "compression": "^1.7.4",
