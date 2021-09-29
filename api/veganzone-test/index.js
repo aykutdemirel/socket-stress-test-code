@@ -7,6 +7,7 @@ router.post('/start', controller.start);
 router.post('/run', controller.run);
 router.get('/stop', controller.stop);
 router.get('/stopReq', controller.stopReq);
-router.post('/startArtilleryInit', controller.startArtilleryInit)
+router.post('/startArtilleryInit', controller.startArtilleryInit);
+router.post('/runArtillery', controller.runArtillery);
 
 module.exports = router;

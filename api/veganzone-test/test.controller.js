@@ -32,9 +32,9 @@ exports.startArtilleryInit = function (req, res) {
 
     for(var i=0; i<majorStatistics.length; i++) {
         
-        console.log("majorStatistics ====> " + majorStatistics[i].ip + ":" + majorStatistics[i].port + "/api/v1/veganzone-test/startArtillery");
+        console.log("majorStatistics ====> " + majorStatistics[i].ip + ":" + majorStatistics[i].port + "/api/v1/veganzone-test/runArtillery");
         
-        axios.post(majorStatistics[i].ip + ":" + majorStatistics[i].port + "/api/v1/veganzone-test/startArtillery", {
+        axios.post(majorStatistics[i].ip + ":" + majorStatistics[i].port + "/api/v1/veganzone-test/runArtillery", {
             controlGuid: majorStatistics[i].controlGuid
         })
         .then(function (response) {
@@ -65,7 +65,7 @@ exports.startArtilleryInit = function (req, res) {
     //startArtillery();
 }
 
-exports.startArtillery = function (req, res) {
+exports.runArtillery = function (req, res) {
     
     console.log('artillery command init');
     console.log('inside of run controller = ' + config.ip + ', port =' + config.port);
